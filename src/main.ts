@@ -10,6 +10,8 @@ import { registerPlugins } from '@/plugins'
 // Components
 import App from './App.vue'
 
+// Add Taiwind CSS
+import './styles/index.css'
 // Composables
 import { createApp } from 'vue'
 
