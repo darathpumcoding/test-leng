@@ -45,7 +45,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     margin-left: -100px;
-    margin-top: 20px;
+    margin-top: 80px;
 
 
   }
@@ -63,7 +63,7 @@
   .material-symbols-outlined{
     font-size: 10rem;
     color: #04841C;
-    font-weight: 1000;
+    /* font-weight: 1000; */
   }
   .info p{
     padding-bottom: 2rem; 

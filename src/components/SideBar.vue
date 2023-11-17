@@ -84,8 +84,7 @@
         position: fixed;
         height: 100vh;
         width: 350px;
-        background: #000;
-    }
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    }
     
     .nav {
         z-index: 1;
@@ -93,6 +92,7 @@
         width: calc(100% - 355px);
         position: fixed;
         height: 100px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
         /* The menu starts at the first column */
     }
     .router-link-active{
