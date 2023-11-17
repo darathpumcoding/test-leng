@@ -1,6 +1,6 @@
 <template>
     <!-- <div class="page-campaign"> -->
-        <h1>Active Campaigns</h1>
+        <h2>Active Campaigns</h2>
         <hr> 
     <!-- </div> -->
         <div class="campaign-card"  >
@@ -33,11 +33,11 @@
 </template>
 <style scoped>
 
-    h1{
+    h2{
         margin-top: 100px;
         color: white;
         text-align: center;
-        width: 15%;
+        width: 20%;
         padding: 1rem;
         border-top-right-radius: 300px;
         border-top-left-radius: 30px;
@@ -58,15 +58,15 @@
     }
     .campaign-card .parent-card{
         background: #04841C;
-        height: 350px;
-        width: 20%;
+        height: 250px;
+        width: 18%;
         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
     }
     .card-image{
         display: flex;
         flex-direction: row;
         justify-content: center;
-        margin-top: 0.6rem;
+        margin-top: 0.5rem;
 
     }
     .card-image img{
@@ -81,11 +81,11 @@
         margin: 20px;
     }
     .action .material-symbols-outlined{
-        font-size: 2.5rem;
+        font-size: 1.6rem;
         color: #FDC400;
     }
     .date-time p{
-        font-size: 1.5rem;
+        font-size: 1rem;
         margin-bottom: 5px;
         color: #fffffe;
     }
@@ -105,7 +105,7 @@
     .see-more p{
         width: 7%;
         text-align:center;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: bold;
         color: #FDC400;
     }

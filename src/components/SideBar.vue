@@ -49,7 +49,12 @@
                         <v-btn icon="mdi-account-circle-outline" class="btn"  v-bind="props"></v-btn>
                     </template>
                     <div class="dialog">
-                        <p>fdjskaghudisaog</p>
+                        <router-link to="/login">
+                            <span class="material-symbols-outlined">
+                                login
+                                </span>
+                            <p>Login Account</p>
+                        </router-link>
                     </div>
                 </v-menu>
             </div>
@@ -95,6 +100,13 @@
         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
         /* The menu starts at the first column */
     }
+    .nav p{
+        color: white;
+    }
+    .active p {
+        color: white;
+        font-size: 1.7rem;
+    }
     .router-link-active{
         background: #fdfdfd;
         text-decoration: none;
@@ -121,9 +133,7 @@
         width: 60%;
     }
 
-    p {
-        color: #FFFFFF;
-    }
+   
 
     .dashboard .active {
         margin-bottom: 10%;
@@ -143,7 +153,7 @@
         margin-left: 1rem;
     }
 
-    p a{
+    .active p a{
         color: white;
         text-decoration: none;
     }
@@ -170,12 +180,33 @@ h2{
     margin-right: 30px;
 }
 .dialog{
-background: #840484a4;
-
+background: #04841C;
+box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 height: 300px;
 width: 300px;
 border-radius: 10px;
 
+}
+.dialog a{
+    padding:30px;
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    align-items: center;
+}
+.dialog a:hover{
+    background: #000;
+}
+.dialog a span{
+    margin-right: 20px;
+    font-size: 2rem;
+    color: white;
+    
+}
+.dialog a p{
+    font-size: 1.5rem;
+    color: white;
+    
 }
 
 </style>

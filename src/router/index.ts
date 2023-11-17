@@ -13,6 +13,12 @@ const routes = [
       {path: '/campaigns',name: 'campaigns',component: () => import('@/views/Campaigns.vue'),},
       {path: '/prizes',name: 'prizes',component: () => import('@/views/Prizes.vue'),},
       {path: '/reports',name: 'reports',component: () => import('@/views/Reports.vue'),},
+      
+      
+      // AuthenticatorAssertionResponseComponent
+      
+      {path: '/login',name: 'login',component: () => import('@/views/Auth/Login.vue'),},
+      {path: '/reset-password',name: 'reset-password',component: () => import('@/views/Auth/ResetPassword.vue'),},
     ],
   },
 ]
