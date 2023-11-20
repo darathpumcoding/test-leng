@@ -41,7 +41,7 @@
         width: 800px;
         margin: 20px;
         padding: 10px 0px 10px 10px;
-        border: 3px solid #04841C;
+        border: 2px solid #04841C;
         font-size: 1.5rem;
     }
     .login-page .btn-login{

@@ -2,5 +2,5 @@
     <Reports></Reports>
 </template>
 <script setup>
-    import Reports from "@/components/Reports.vue"
+    import Reports from "@/components/DasboardCategories/Reports.vue"
 </script>
