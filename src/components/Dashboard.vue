@@ -163,14 +163,23 @@
         color: white;
         font-size: 1.7rem;
     }
+    .active .material-symbols-outlined{
+        color: rgb(255, 255, 255);
+        font-weight: 600;
+        font-size: 3rem;
+        margin-right: 1rem;
+        margin-left: 1rem;
+    }
     .router-link-active{
         background: #fdfdfd;
         text-decoration: none;
         color: #04841C;
     }
-    .router-link-active p{
+    .router-link-active p, .router-link-active .material-symbols-outlined{
         color: #04841C;
     }
+ 
+
     .main {
         position: absolute;
         left: 400px;
@@ -213,14 +222,7 @@
         text-decoration: none;
 
     }
-    .dashboard .active .material-symbols-outlined{
-        color: rgb(255, 255, 255);
-        font-weight: 600;
-        font-size: 3rem;
-        margin-right: 1rem;
-        margin-left: 1rem;
-    }
-
+    
     .active p a{
         color: white;
         text-decoration: none;
@@ -297,4 +299,5 @@ border-radius: 10px;
             font-size: 1.2rem;
         }
     }
+  
 </style>
