@@ -8,7 +8,7 @@
       <div class="icon-info">
         <span class="material-symbols-outlined">
           person
-      </span>
+        </span>
       </div>
     </div>
     <div class="card">
@@ -19,7 +19,7 @@
       <div class="icon-info">
         <span class="material-symbols-outlined">
           brand_awareness
-      </span>
+        </span>
       </div>
     </div>
     <div class="card">
@@ -30,7 +30,7 @@
       <div class="icon-info">
         <span class="material-symbols-outlined">
           rewarded_ads
-      </span>
+        </span>
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
   import CampaignCards from "./CampaignCards.vue";
 </script>
 <style scoped>
-  .main-container{
+  .main-container {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -49,33 +49,62 @@
 
 
   }
-  .main-container .card{
+
+  .main-container .card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background: #ffffff;
-    
+
     height: 200px;
     width: 26%;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;    padding: 3rem;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     padding: 3rem;
     align-items: center;
   }
-  .material-symbols-outlined{
+
+  .material-symbols-outlined {
     font-size: 7rem;
     color: #04841C;
     /* font-weight: 1000; */
   }
-  .info p{
-    padding-bottom: 1rem; 
+
+  .info p {
+    padding-bottom: 1rem;
     font-size: 1.5rem;
     font-weight: 900;
   }
-  .info p:nth-child(1){
+
+  .info p:nth-child(1) {
     color: #04841C;
   }
-  .info p:nth-child(2){
+
+  .info p:nth-child(2) {
     color: #FDC400;
   }
 
+  @media (max-width:1080px) {
+    .main-container{
+      margin-left:-50px;
+    }
+    .main-container .card {
+      height: 130px;
+      width: 28%;
+      padding: 0.5rem;
+      
+      justify-content: space-around;
+    }
+
+    .info p {
+      padding-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .material-symbols-outlined {
+      font-size: 3rem;
+      color: #04841C;
+      /* font-weight: 1000; */
+    }
+  }
 </style>
