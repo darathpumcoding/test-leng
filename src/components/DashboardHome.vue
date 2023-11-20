@@ -45,7 +45,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     margin-left: -100px;
-    margin-top: 80px;
+    margin-top: 40px;
 
 
   }
@@ -54,20 +54,21 @@
     flex-direction: row;
     justify-content: space-between;
     background: #ffffff;
-    height: 300px;
-    width: 28%;
+    
+    height: 200px;
+    width: 26%;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;    padding: 3rem;
     padding: 3rem;
     align-items: center;
   }
   .material-symbols-outlined{
-    font-size: 10rem;
+    font-size: 7rem;
     color: #04841C;
     /* font-weight: 1000; */
   }
   .info p{
-    padding-bottom: 2rem; 
-    font-size: 2.5rem;
+    padding-bottom: 1rem; 
+    font-size: 1.5rem;
     font-weight: 900;
   }
   .info p:nth-child(1){

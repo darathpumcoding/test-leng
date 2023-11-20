@@ -2,5 +2,5 @@
     <Prizes></Prizes>
 </template>
 <script setup>
-    import Prizes from "@/components/Prizes.vue"
+    import Prizes from "@/components/DasboardCategories/Prizes.vue"
 </script>

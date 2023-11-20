@@ -1,16 +1,9 @@
 <template>
   
-        <SideBar></SideBar>
-        <!-- <div class="side-bar">
-          <Dashboard></Dashboard>
-          <div style="width: 100%;">
-            <NavBar></NavBar>
-
-            <router-view></router-view>
-          </div>
-
-        </div> -->
-    
+        <Dashboard v-if="$route.path !=='/login' && $route.path !=='/reset-password' "></Dashboard>
+        <div class="main" v-else>
+          <router-view></router-view>
+      </div>
   
  
 
@@ -20,7 +13,6 @@
   //
   import NavBar from "@/components/NavBar.vue"
   import Dashboard from "@/components/Dashboard.vue"
-  import SideBar from "@/components/SideBar.vue"
 </script>
 <style scoped>
 .side-bar{
