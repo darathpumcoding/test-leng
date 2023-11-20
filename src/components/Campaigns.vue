@@ -1,12 +1,17 @@
 <template>
+    
     <h1>Campaign Page</h1>
     <!-- <button>add</button> -->
     <div class="bnt-add d-flex justify-end mr-15 mb-5">
-        <v-btn class="bg-green">
-        Add Compaign
-    </v-btn>
+         <router-link to="/addCompaign">
+            <v-btn class="bg-green">
+           Add Compaign
+        </v-btn>
+    </router-link>
+
+
     </div>
-    
+
     <v-table density="compact mr-15">
         <thead>
             <tr class="bg-black">

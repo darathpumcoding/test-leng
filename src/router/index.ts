@@ -13,6 +13,8 @@ const routes = [
       {path: '/campaigns',name: 'campaigns',component: () => import('@/views/Campaigns.vue'),},
       {path: '/prizes',name: 'prizes',component: () => import('@/views/Prizes.vue'),},
       {path: '/reports',name: 'reports',component: () => import('@/views/Reports.vue'),},
+      {path: '/addCompaign',name: 'addCompaign',component: () => import('@/views/Form/AddCompaign.vue'),},
+      {path: '/updateCompaign',name: 'updateCompaign',component: () => import('@/views/Form/UpdateCompaign.vue'),},
     ],
   },
 ]
