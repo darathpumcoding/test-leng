@@ -24,11 +24,14 @@
             </div>
         </div>
     </div>
+    <router-link to="/campaigns">
     <div class="see-more">
+        
         <div class="line"></div>
         <p>See more</p>
         <div class="line"></div>
     </div>
+</router-link>
 
 </template>
 <style scoped>
@@ -41,6 +44,7 @@
         border-top-right-radius: 300px;
         border-top-left-radius: 30px;
         background: #04841C;
+        font-size: 1.7rem;
     }
 
     hr {

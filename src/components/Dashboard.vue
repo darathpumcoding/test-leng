@@ -1,7 +1,7 @@
 <template>
     <div class="grid-container">
         <div :class="show == true ? 'dashboard green sidebar-left':'dashboard green sidebar-left-dialog'">
-            <span v-if="!show" class="material-symbols-outlined text-white" @click="swhowSideBar">menu</span>
+            <span id="menu" v-if="!show" class="material-symbols-outlined text-white" @click="swhowSideBar">menu</span>
             <span v-else class="material-symbols-outlined w-100 text-start pl-5 close" @click="blockSideBar">close</span>
             <router-link to="/" v-if="show"><img src="../assets/smart-logo.png" alt=""></router-link>
             <hr width="90%" style="margin: auto; margin-bottom: 10%;">
@@ -79,7 +79,7 @@
         padding: 20px 0;
         font-size: 30px;
     }
-
+  
 
     .dashboard {
         background-color: #04841C;
@@ -113,6 +113,7 @@
         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
         /* The menu starts at the first column */
     }
+    
     .nav-two{
         left: 105px;
         width: calc(100% - 105px
@@ -123,11 +124,12 @@
 
     }
     .icon .material-symbols-outlined{
-        padding: 30px 0 30px 0;
+        margin: 30px 0 30px 0;
     }
     .active p {
         color: white;
         font-size: 1.7rem;
+        /* transition: 5s; */
 
     }
     .active .material-symbols-outlined{
@@ -135,7 +137,7 @@
         font-weight: 600;
         font-size: 3rem;
         margin-right: 1rem;
-        transition: all 0.5s;
+        /* transition: all 0.5s; */
         margin-left: 1rem;
     }
     .router-link-active{
@@ -159,12 +161,8 @@
 
     }
     .two{
-        position: absolute;
-        left: 200px;
+        left: 250px;
         width: calc(100% - 355px);
-        padding-top: 130px;
-        grid-column: 2 / 7;
-        grid-row: 2 / 100;
     }
 /* ========================================================== */
  
@@ -248,7 +246,10 @@ border-radius: 10px;
     
 }
 
-
+#menu{
+        font-size: 3rem;
+        
+    }
 @media (max-width:1080px) {
         .dashboard{
             width: 250px;
@@ -266,6 +267,7 @@ border-radius: 10px;
         }
         .nav p{
             font-size: 1.2rem;
+            transition: 0.5s;
         }
     }
   

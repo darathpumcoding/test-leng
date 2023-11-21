@@ -1,37 +1,40 @@
 <template>
   <div class="main-container">
     <div class="card">
-      <div class="info">
-        <p>20.5k</p>
-        <p>Total Players</p>
-      </div>
       <div class="icon-info">
         <span class="material-symbols-outlined">
           person
         </span>
       </div>
-    </div>
-    <div class="card">
       <div class="info">
         <p>20.5k</p>
-        <p>Total Campaigns</p>
+        <p>Total Players</p>
       </div>
+      
+    </div>
+    <div class="card">
       <div class="icon-info">
         <span class="material-symbols-outlined">
           brand_awareness
         </span>
       </div>
+      <div class="info">
+        <p>20.5k</p>
+        <p>Total Campaigns</p>
+      </div>
+      
     </div>
     <div class="card">
-      <div class="info">
-        <p>200</p>
-        <p>Total Prizes</p>
-      </div>
       <div class="icon-info">
         <span class="material-symbols-outlined">
           rewarded_ads
         </span>
       </div>
+      <div class="info">
+        <p>200</p>
+        <p>Total Prizes</p>
+      </div>
+      
     </div>
   </div>
   <CampaignCards></CampaignCards>
@@ -56,10 +59,10 @@
     justify-content: space-between;
     background: #ffffff;
 
-    height: 200px;
+    height: 170px;
     width: 26%;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    padding: 3rem;
+    padding: 2rem;
     align-items: center;
   }
 
@@ -68,7 +71,9 @@
     color: #04841C;
     /* font-weight: 1000; */
   }
-
+  .info {
+    text-align: center;
+  }
   .info p {
     padding-bottom: 1rem;
     font-size: 1.5rem;
