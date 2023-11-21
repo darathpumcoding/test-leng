@@ -1,44 +1,28 @@
 <template>
     <div class="grid-container">
-        <div class="dashboard green sidebar-left" v-if="show">
-            <span class="material-symbols-outlined w-100 text-start pl-5 close" @click="blockSideBar">close</span>
-            <router-link to="/" ><img src="../assets/smart-logo.png" alt=""></router-link>
+        <div :class="show == true ? 'dashboard green sidebar-left':'dashboard green sidebar-left-dialog'">
+            <span v-if="!show" class="material-symbols-outlined text-white" @click="swhowSideBar">menu</span>
+            <span v-else class="material-symbols-outlined w-100 text-start pl-5 close" @click="blockSideBar">close</span>
+            <router-link to="/" v-if="show"><img src="../assets/smart-logo.png" alt=""></router-link>
             <hr width="90%" style="margin: auto; margin-bottom: 10%;">
-            <router-link class="manage-user active" to="/manage-user">
+            <router-link :class="show == true ? 'manage-user active':'active icon'" to="/manage-user">
                 <span class="material-symbols-outlined">person</span>
-                <p>Manage users</p>
+                <p v-if="show">Manage users</p>
             </router-link>
-            <router-link class="campaigns active" to="/campaigns">
+            <router-link :class="show == true ? 'compaigns active':'active icon'" to="/campaigns">
                 <span class="material-symbols-outlined">brand_awareness</span>
-                <p>Campmaigns</p>
+                <p v-if="show">Campmaigns</p>
             </router-link>
-            <router-link class="prizes active" to="/prizes">
+            <router-link :class="show == true ? 'prizes active':'active icon'" to="/prizes">
                 <span class="material-symbols-outlined">rewarded_ads</span>
-                <p>Prizes</p>
+                <p v-if="show">Prizes</p>
             </router-link>
-            <router-link class="reports active" to="/reports">
+            <router-link :class="show == true ? 'reports active':'active icon'" to="/reports">
                 <span class="material-symbols-outlined">report</span>
-                <p>Reports</p>
+                <p v-if="show">Reports</p>
             </router-link>
         </div>
-        <div class="dashboard green sidebar-left-dialog" v-else>
-            <span class="material-symbols-outlined text-white" @click="sideBar">menu</span>
-            
-            <hr width="90%" style="margin: auto; margin-bottom: 10%;">
-            <router-link class="manage-user active" to="/manage-user">
-                <span class="material-symbols-outlined">person</span>
-            </router-link>
-            <router-link class="campaigns active" to="/campaigns">
-                <span class="material-symbols-outlined">brand_awareness</span>
-            </router-link>
-            <router-link class="prizes active" to="/prizes">
-                <span class="material-symbols-outlined">rewarded_ads</span>
-            </router-link>
-            <router-link class="reports active" to="/reports">
-                <span class="material-symbols-outlined">report</span>
-            </router-link>
-        </div>
-        <div class="nav green" v-if="show">
+        <div class="nav green" :class="show == true ? 'nav green':'nav green nav-two'">
             <div class="nav-left">
                 <p>Dashboard</p>
             </div>
@@ -61,41 +45,16 @@
                 </v-menu>
             </div>
         </div>
-        <div class="nav green nav-two" v-else>
-            <div class="nav-left">
-                <p>Dashboard</p>
-            </div>
-            <div class="nav-center">
-                <p>Home</p>
-            </div>
-            <div class="nav-right">
-                <v-menu>
-                    <template v-slot:activator="{ props }">
-                        <v-btn icon="mdi-account-circle-outline" class="btn"  v-bind="props"></v-btn>
-                    </template>
-                    <div class="dialog">
-                        <router-link to="/login">
-                            <span class="material-symbols-outlined">
-                                login
-                                </span>
-                            <p>Login Account</p>
-                        </router-link>
-                    </div>
-                </v-menu>
-            </div>
-        </div>
-        <div class="main" v-if="show">
+        <div :class="show == true ? 'main' :'main two' ">
             <router-view></router-view>
         </div>
-        <div class="main two" v-else>
-            <router-view></router-view>
-        </div>
+
     </div>
 </template>
 <script setup>
     import {ref} from 'vue';
     const show = ref(false);
-    const sideBar = ()=>{
+    const swhowSideBar = ()=>{
         show.value = true;
     }
     const blockSideBar = ()=>{
@@ -128,6 +87,7 @@
         position: fixed;
         height: 100vh;
         width: 350px;
+        transition: all 0.5s;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    
     }
         .sidebar-left-dialog{
@@ -148,6 +108,8 @@
         width: calc(100% - 355px);
         position: fixed;
         height: 100px;
+        transition: all 0.5s;
+
         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
         /* The menu starts at the first column */
     }
@@ -158,16 +120,22 @@
     }
     .nav p{
         color: rgb(255, 255, 255);
+
+    }
+    .icon .material-symbols-outlined{
+        padding: 30px 0 30px 0;
     }
     .active p {
         color: white;
         font-size: 1.7rem;
+
     }
     .active .material-symbols-outlined{
         color: rgb(255, 255, 255);
         font-weight: 600;
         font-size: 3rem;
         margin-right: 1rem;
+        transition: all 0.5s;
         margin-left: 1rem;
     }
     .router-link-active{
@@ -187,6 +155,7 @@
         padding-top: 130px;
         grid-column: 2 / 7;
         grid-row: 2 / 100;
+        transition: all 0.5s;
 
     }
     .two{
