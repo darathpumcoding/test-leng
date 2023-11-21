@@ -3,8 +3,12 @@
     <div class="reset-password">
          <img src="../../assets/smart-logo2.png" alt="">
          <h1>Reset password</h1>
-         <input type="password" id="password" placeholder="Enter new password*">
-         <input type="password" id="password" placeholder="Confirm password*">
+         <div class="shap">
+
+            <div id="triangle-down"></div>
+        </div>
+         <input type="password" id="password" class="resize-none focus:outline-none" placeholder="Enter new password*">
+         <input type="password" id="password" class="resize-none focus:outline-none" placeholder="Confirm password*">
          <div class="btn-control">
             <router-link to="/login"><button class="btn btn-reset-password">Cancel</button></router-link>
             <button class="btn btn-reset-password">Submit</button>
@@ -21,9 +25,21 @@
          font-size: 2.5rem;
          color: white;
          background: #04841C;
-         margin: 0 0 50px 0;
  
      }
+     .shap{
+        width: 800px;
+        margin-bottom: 50px;
+    }
+    #triangle-down {
+        margin-top: 0;
+    text-align: start;
+      width: 0;
+      height: 0;
+      border-left: 0px solid transparent;
+      border-right: 50px solid transparent;
+      border-top: 50px solid #04841C;
+    }
      .reset-password a{
          font-size: 1.5rem;
          color: black;
