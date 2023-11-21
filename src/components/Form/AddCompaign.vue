@@ -57,9 +57,8 @@
             </div>
             <div class="w-full flex justify-center ">
                 <!-- <router-link to="/campaigns"> -->
-                     <button type="button"
-                        class="p-2 w-24 bg-yellow-500 rounded-sm" @click="cancelAddCampaign">Cancel</button>
-                    <!-- </router-link> -->
+                <button type="button" class="p-2 w-24 bg-yellow-500 rounded-sm" @click="cancelAddCampaign">Cancel</button>
+                <!-- </router-link> -->
                 <button type="button" class="p-2 w-24 bg-green rounded-sm ml-5">Submit</button>
             </div>
         </form>
@@ -71,24 +70,25 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-  form: Boolean,
+    form: Boolean,
 });
 
-const emit = defineEmits(['cancel:form']);
+const emit = defineEmits(['formCancel']);
 
 const cancelAddCampaign = () => {
-  emit('cancel:form', !props.form);
-  console.log('love');
-};  
-    // import { defineProps } from 'vue';
+    emit('formCancel');
+    props.form = false;
+    console.log('love');
+};
+// import { defineProps } from 'vue';
 
-    // const props = defineProps({
-    //     form:Boolean,
-    // });
-    // console.log(props.form);
+// const props = defineProps({
+//     form:Boolean,
+// });
+// console.log(props.form);
 
-    // const cacenlAddCampaign =()=>{
-    //     props.form=false;
-    //     console.log(props.form);
-    // }
+// const cacenlAddCampaign =()=>{
+//     props.form=false;
+//     console.log(props.form);
+// }
 </script>
