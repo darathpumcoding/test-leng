@@ -2,5 +2,5 @@
     <Login></Login>
 </template>
 <script setup>
-    import Login from "@/components/Auth/Login.vue"
+    import Login from "@/components/auth/Login.vue";
 </script>

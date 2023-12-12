@@ -1,26 +1,30 @@
 <template>
   <div class="main-container">
     <div class="card">
-      <div class="icon-info">
-        <span class="material-symbols-outlined">
+      <div class="icon-info flex flex-row">
+        <span class="material-symbols-outlined ">
           person
         </span>
+        <span class="material-symbols-outlined plus" >
+          add
+          </span>
       </div>
       <div class="info">
-        <p>20.5k</p>
-        <p>Total Players</p>
+        <p>Add Campaign</p>    
       </div>
       
     </div>
     <div class="card">
-      <div class="icon-info">
+      <div class="icon-info flex flex-row ">
         <span class="material-symbols-outlined">
           brand_awareness
         </span>
+        <span class="material-symbols-outlined plus" >
+          add
+          </span>
       </div>
       <div class="info">
-        <p>20.5k</p>
-        <p>Total Campaigns</p>
+        <p>Add Prizes</p>
       </div>
       
     </div>
@@ -31,8 +35,7 @@
         </span>
       </div>
       <div class="info">
-        <p>200</p>
-        <p>Total Prizes</p>
+        <p>Reports</p>
       </div>
       
     </div>
@@ -41,63 +44,80 @@
 </template>
 <script setup>
   import CampaignCards from "./CampaignCards.vue";
+  // import LoginDialog from "./Dialog/LoginDialog.vue";
 </script>
 <style scoped>
   .main-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    margin-left: -100px;
-    margin-top: 40px;
-
+    gap: 4rem;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding-top: 50px;
 
   }
 
   .main-container .card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     background: #ffffff;
-
-    height: 170px;
-    width: 26%;
+    cursor: pointer;
+    height: 250px;
+    width: 300px !important;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    padding: 2rem;
+    /* padding: 2rem; */
     align-items: center;
   }
 
   .material-symbols-outlined {
     font-size: 7rem;
-    color: #04841C;
+    margin-top: 40px;
+    color: 	#00953A;
     /* font-weight: 1000; */
   }
   .info {
-    text-align: center;
+    color: #ffff;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
+  }
+  .icon-info{
+    display: flex;
+    flex-direction: column;
   }
   .info p {
-    padding-bottom: 1rem;
+    padding: 1.5rem;
     font-size: 1.5rem;
     font-weight: 900;
+    background: 	#00953A;
+    color: #ffff;
+    transition: all 1s;
+    text-align: center;
+   
   }
+  .main-container .card:hover p{
+    background: #F4C300;
+    cursor: pointer;
+    color: 	#00953A;
+    transition: all 1s;
+  }
+.plus{
+  font-size: 3rem;
+  font-weight: bold;
+  margin-left: -15px;
+}
 
-  .info p:nth-child(1) {
-    color: #04841C;
-  }
-
-  .info p:nth-child(2) {
-    color: #FDC400;
-  }
 
   @media (max-width:1080px) {
-    .main-container{
-      margin-left:-50px;
-    }
     .main-container .card {
-      height: 130px;
-      width: 28%;
-      padding: 0.5rem;
+      height: 200px;
+      width: 300px;
       
-      justify-content: space-around;
     }
 
     .info p {
@@ -108,8 +128,8 @@
 
     .material-symbols-outlined {
       font-size: 3rem;
-      color: #04841C;
-      /* font-weight: 1000; */
+      color: 	#00953A;
+
     }
   }
 </style>

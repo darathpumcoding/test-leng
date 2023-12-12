@@ -3,5 +3,5 @@
 </template>
 
 <script lang="ts" setup>
-    import UpdateCompaign from "@/components/TheForm/UpdateCompaign.vue";
+    import UpdateCompaign from "@/components/Form/UpdateCompaign.vue";
 </script>

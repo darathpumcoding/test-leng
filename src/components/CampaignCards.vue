@@ -1,87 +1,98 @@
 <template>
-    <!-- <div class="page-campaign"> -->
-    <h2>Active Campaigns</h2>
-    <hr>
-    <!-- </div> -->
-    <div class="campaign-card">
-        <div class="parent-card" v-for="index in 4" :key="index">
-            <div class="card-image">
-                <img src="https://techcrunch.com/wp-content/uploads/2020/04/GettyImages-1066818018.png" alt="">
-            </div>
-            <div class="card-action-info">
-                <div class="date-time">
-                    <p>Date start: 01-26-2024</p>
-                    <p>Date end: 02-26-2024</p>
+    <div class="page-campaign mb-10">
+        <div class="mt-20 ">
+            <!-- <div class="campaign-active" >
+                <div class="line"></div> -->
+                <h2>Active Campaigns</h2>
+                <!-- <div class="line"></div>
+            </div> -->
+        </div>
+        <div class="campaign-card">
+            <div class="parent-card" v-for="index in 4" :key="index">
+                <div class="name-campaign">
+                    <h3>Khmer new year</h3>
+
                 </div>
-                <div class="action">
-                    <span class="material-symbols-outlined">
-                        delete
-                    </span>
-                    <span class="material-symbols-outlined">
-                        edit_square
-                    </span>
+                <div class="card-image">
+                    <img src="https://techcrunch.com/wp-content/uploads/2020/04/GettyImages-1066818018.png" alt="">
+                </div>
+                <div class="card-action-info">
+                    <div class="name-date">
+                        <p>Date start: 01-26-2024</p>
+                        <p>Date end: 02-26-2024</p>
+                    </div>
+                    <div class="action flex flex-row items-center">
+                        <span class="material-symbols-outlined">
+                            visibility
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <router-link to="/campaigns">
-    <div class="see-more">
         
-        <div class="line"></div>
-        <p>See more</p>
-        <div class="line"></div>
+        <router-link to="/campaigns">
+            <div class="see-more">
+                <p>View All</p>
+            </div>
+        </router-link>
     </div>
-</router-link>
 
 </template>
 <style scoped>
     h2 {
-        margin-top: 100px;
-        color: white;
+        margin:auto;
+        color: 	#00953A;
         text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
         width: 20%;
         padding: 1rem;
-        border-top-right-radius: 300px;
-        border-top-left-radius: 30px;
-        background: #04841C;
         font-size: 1.7rem;
+        font-weight: bold;
+        margin-top: 50px; 
     }
-
-    hr {
-        color: #FDC400;
-        border: none;
-        border: 2px solid #FDC400;
-        margin-right: 100px;
-    }
-
     .campaign-card {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         flex-wrap: wrap;
-        margin-left: -90px;
-        margin-top: 80px;
+        margin-top: 40px;
     }
-    
+    .campaign-active{
+        display: flex;
+        flex-direction: row;
+        margin-top: 50px;
+        align-items: center;
+    }
     .campaign-card .parent-card {
-        
-        background: #04841C;
         flex-wrap: wrap;
-        height: 250px;
-        width: 18%;
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        height: 20%;
+        width: 300px !important;
+        margin: 15px;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+        border: 2px solid #ffffff00;
     }
-
+    .campaign-card:hover .parent-card:hover {
+        background: 	#F4C300;
+    }
+   .name-campaign{
+        background: 	#00953A;
+        color: #fffffe;
+        padding: 0.5rem;
+        font-size: 1.5rem;
+        text-align: center;
+   }
     .card-image {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        margin-top: 0.5rem;
-
+        
     }
-
+    
     .card-image img {
-        width: 95%;
+        /* margin-top: 0.25rem; */
+        width: 100%;
     }
 
     .card-action-info {
@@ -89,44 +100,77 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-
-        margin: 20px;
+        padding: 0.5rem;
+        background: 	#00953A;
+        width: 100%;
     }
 
     .action .material-symbols-outlined {
         font-size: 1.6rem;
-        color: #FDC400;
+        color: #ffffff;
+        transition: all 0.5s;
+
+    }
+    .action .material-symbols-outlined {
+        color: #ffffff;
+        margin-right: 0.5rem;
+        font-size: 3.5rem;
+    }
+    .action .material-symbols-outlined:hover{
+        cursor: pointer;
+        color: 	#F4C300;
+        transition: all 0.5s;
+
     }
 
-    .date-time p {
+    .name-date p {
         font-size: 1rem;
         margin-bottom: 5px;
         color: #fffffe;
     }
+    .name-date h3 {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+        color: #fffffe;
+        white-space: nowrap; 
+        width: 100%; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
 
     .see-more {
-        margin-top: 80px;
+        margin-top: 50px;
         display: flex;
         flex-direction: row;
+        justify-content: center;
         align-items: center;
-
-        margin-right: 80px;
+        /* margin-right: 45px; */
     }
 
-    .see-more .line {
-        border: 1px solid #FDC400;
+   .line {
+        border: 1px solid #000000;
         height: 2px;
-        width: 50%;
+        width: 45%;
     }
-
+    
     .see-more p {
-        width: 7%;
+        background:#F4C300;
+        width: 150px;
         text-align: center;
         font-size: 1rem;
         font-weight: bold;
-        color: #FDC400;
+        color: 	#00953A;
+        transition: all 1s;
+        padding: 0.5rem;
     }
-
+    .see-more p:hover{
+        background: 	#00953A;
+        color: #fffffe;
+        transition: all 1s;
+    }
+.page-campaign a{
+    text-decoration: none;
+}
     @media (max-width:1080px) {
         h2 {
             font-size: 1rem;
