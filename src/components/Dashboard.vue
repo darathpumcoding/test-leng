@@ -2,7 +2,7 @@
     <div class="grid-container">
         <div :class="show == true ? 'dashboard green sidebar-left':'dashboard green sidebar-left-dialog'">
             <span id="menu" v-if="!show" class="material-symbols-outlined text-white" @click="swhowSideBar">menu</span>
-            <span v-else class="material-symbols-outlined w-100 text-start pl-5 close"
+            <span v-else class="material-symbols-outlined close"
                 @click="blockSideBar">close</span>
             <router-link to="/" v-if="show"><img src="../assets/smart-logo.png" alt=""></router-link>
             <hr width="90%" style="margin: auto; margin-top: 18px; border: 2px solid white; width: 100%;">
@@ -59,26 +59,27 @@
 </script>
 
 <style scoped>
-    .grid-container {
+        .grid-container {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        /* Define 6 columns with equal width */
         grid-template-rows: auto auto auto;
-        /* Define 3 rows with auto height */
         gap: 10px;
-        /* padding: 10px; */
     }
 
     .grid-container>.green {
-        background-color: 	#00953A;
+        background-color: #009639;
         text-align: center;
         padding: 20px 0;
         font-size: 30px;
     }
-
-
+hr{
+    margin: auto;
+     margin-top: 18px;
+      border: 2px solid white; 
+      width: 100%;
+}
     .dashboard {
-        background-color: 	#00953A;
+        background-color: #009639;
         z-index: 1;
         position: fixed;
         height: 100vh;
@@ -90,6 +91,7 @@
     .sidebar-left-dialog {
         width: 100px;
     }
+ 
 
     .sidebar-left-dialog .material-symbols-outlined {
         font-size: 2rem;
@@ -97,117 +99,36 @@
     }
 
     .close {
+        display: flex;
+        margin-left: 20px;
+        text-align: start;
         font-size: 2rem;
         color: white;
         cursor: pointer;
+        width: 32px;
     }
+    a.active.icon{
+            margin-bottom: -10px;
 
-    .nav {
-        z-index: 1;
-        left: 325px;
-        width: calc(100% - 325px);
-        position: fixed;
-        height: 100px;
-        transition: all 0.5s;
-        display: flex;
-        justify-content: space-between;
-
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-        /* The menu starts at the first column */
-    }
-    .nav-left{
-        width: 10%;
-    }
-    .nav-left img {
-        width: 90%;
-    }
-
-    .nav-two {
-        left: 105px;
-        width: calc(100% - 105px);
-    }
-
-    .nav p {
-        color: rgb(255, 255, 255);
-
-    }
-
-    .icon .material-symbols-outlined {
-        margin: 30px 0 30px 0;
-    }
-
-    .active  {
-        color: white;
-        text-align: start;
-        font-size: 1.7rem;
-        white-space: nowrap; 
-        width: 180px; 
-        overflow: hidden;
-        text-overflow: ellipsis; 
-        transition: 0.5s;
-        /* background: #000; */
-}
-
-
-
-    .active .material-symbols-outlined {
-        color: white;
-        font-weight: 600;
-        font-size: 3rem;
-        margin-right: 1rem;
-        transition: all 0.5s;
-        margin-left: 1rem;
-    }
-    .active:hover p,
-    .active:hover .material-symbols-outlined {
-        color: #F4C300;
-    }
-
-    .router-link-active p,
-    .router-link-active .material-symbols-outlined {
-        color: #F4C300;
-    }
-
-    .main-expand {
-        position: absolute;
-        left: 370px;
-        width: calc(100% - 420px);
-        padding-top: 130px;
-        transition: all 0.5s;
-        height: 100vh;
-
-
-    }
-
-    .main-collapse {
-        position: absolute;
-        left: 150px;
-        width: calc(100% - 200px);
-        padding-top: 130px;
-        transition: all 0.5s;
-        height: 100vh;
-
-    }
-
-    /* ========================================================== */
-
-
+        }
     .dashboard img {
         margin-top: -50px;
         display: flex;
         text-align: center;
-        margin-left: 80px;
+        margin-left: 60px;
         width: 200px;
-
-
     }
 
+    #menu {
+        font-size: 3rem;
 
+    }
+    
 
     .dashboard .active {
-        margin-bottom: 10%;
+        padding-bottom: 50px;
         padding-left: 5%;
-        padding: 5%;
+        /* padding: 5%; */
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -220,21 +141,80 @@
         color: white;
         text-decoration: none;
     }
-    .dashboard .icon{
+
+    .dashboard .icon {
         width: 100px;
 
     }
-    /* =============================================================== */
 
+    .icon .material-symbols-outlined {
+        margin: 30px 0 30px 0;
+    }
+
+    .active {
+        color: white;
+        text-align: start;
+        font-size: 1.7rem;
+        white-space: nowrap;
+        width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: 0.5s;
+    }
+
+    .active .material-symbols-outlined {
+        color: white;
+        font-weight: 600;
+        font-size: 3rem;
+        margin-right: 1rem;
+        margin-left: 1rem;
+    }
+
+    .active:hover p,
+    .active:hover .material-symbols-outlined {
+        color: #F1C400;
+    }
+
+    .router-link-active p,
+    .router-link-active .material-symbols-outlined {
+        color: #F1C400;
+    }
+
+    /* ======================================================= */
     .nav {
+        z-index: 1;
+        left: 325px;
+        width: calc(100% - 325px);
+        position: fixed;
+        height: 100px;
+        transition: all 0.5s;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    }
+    
+    .nav-left {
+        width: 10%;
+    }
+    
+    .nav-left img {
+        width: 200px;
+    }
 
+    .nav-two {
+        left: 105px;
+        width: calc(100% - 105px);
+    }
 
+    .nav p {
+        color: rgb(255, 255, 255);
+    }
+    
+    .nav {
         display: flex;
         flex-direction: row;
-
         justify-content: space-between;
         align-items: center;
-
     }
 
     h2 {
@@ -255,55 +235,98 @@
         margin-right: 30px;
     }
     .user-name{
+        font-size: 1.2rem;
+        color: #ffff; 
         margin-right: 1rem;
-        color:#ffff;
-        font-size: 1.5rem;
-        opacity: 1;
-    }
-    .dialog {
-        background: 	#00953A;
-        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-        height: 300px;
-        width: 300px;
-        border-radius: 10px;
-    }
-    .dialog a {
-        padding: 30px;
-        display: flex;
-        flex-direction: row;
-        text-decoration: none;
-        align-items: center;
     }
 
-    .dialog a:hover {
-        background: #000;
-    }
+/* ==================================================================== */
+    .main-expand {
 
-    .dialog a span {
-        margin-right: 20px;
-        font-size: 2rem;
-        color: white;
+        position: absolute;
+        left: 370px;
+        width: calc(100% - 420px);
+        padding-top: 130px;
+        transition: all 0.5s;
+        height: 100vh;
 
-    }
-
-    .dialog a p {
-        font-size: 1.5rem;
-        color: white;
 
     }
-
-    #menu {
-        font-size: 3rem;
+    .main-collapse {
+ 
+        position: absolute;
+        left: 150px;
+        width: calc(100% - 200px);
+        padding-top: 130px;
+        transition: all 0.5s;
+        height: 100vh;
+    }
+    .sidebar-left-dialog .active{
+        text-align: center;
+        padding-bottom: 50px;
+    
 
     }
 
     @media (max-width:1080px) {
-        .active p {
-            font-size: 1.2rem;
+        .nav-center p{
+            font-size: 1.5rem;
         }
-        .nav p {
-            font-size: 1.2rem;
-            transition: 0.5s;
+        .dashboard{
+            width: 200px;
         }
+        .nav{
+            left: 205px;
+            width: calc(100% - 205px);
+        }
+        .sidebar-left-dialog .active{
+            text-align: center;
+            /* padding-left: 0.6rem; */
+        }
+        .active .material-symbols-outlined{
+            font-size: 2rem;
+        }
+        a.active.icon{
+            margin-bottom: -50px;
+        }
+        .close{
+            margin-left: 10px;
+            font-size: 1.5rem;
+            margin-top: -10px;
+        }
+        .active p{
+            font-size: 1rem;
+        }
+        .dashboard img {
+            margin-top: -20px;
+            width: 150px;
+            margin-left: 30px;
+        }
+        #menu {
+            font-size: 2rem;
+        }
+        .sidebar-left-dialog{
+            width: 80px;
+        }
+        hr{
+            margin-top: 10px;
+        }
+        .nav{
+            height: 80px;
+        }
+        .nav-two{
+            left: 85px;
+            width: calc(100% - 85px);
+        }
+        .main-expand{
+            left: 230px;
+            width: calc(100% - 260px);
+        }
+        .main-collapse {
+            position: absolute;
+            left: 120px;
+            width: calc(100% - 160px);
+        }
+            
     }
 </style>

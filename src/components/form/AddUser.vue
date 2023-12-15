@@ -47,6 +47,9 @@
  import {ref } from 'vue';
  import axios from 'axios';
  import {useRouter} from 'vue-router';
+ import {validatePassword, validateEmail, validFirstName, validLastName} from "../../validation";
+ 
+
 
  const router = useRouter();
 
@@ -64,6 +67,29 @@ const pathName = ref('');
 const passConfirm = ref(false);
 
  const register = ()=>{ 
+    const errEmail = validateEmail(email.value);
+    const errPassword = validatePassword(password.value);
+    const errFirstName =validFirstName(first_name.value);
+    const errLastName = validLastName(last_name.value);
+    if (errFirstName){
+        pathName.value = 'first_name';
+        invalidMessage.value= errFirstName;
+        return;
+    }if(errLastName){
+        pathName.value = 'last_name';
+        invalidMessage.value = errLastName;
+        return;
+    }if(errEmail){
+        pathName.value = 'email';
+        invalidMessage.value = errEmail;
+        return;
+    }
+    if(errPassword) {
+        pathName.value = 'password';
+        invalidMessage.value = errPassword;
+        return;
+    }
+    
       let data = {
          'first_name':first_name.value,
          'last_name':last_name.value,
@@ -83,14 +109,14 @@ const passConfirm = ref(false);
         else {
               errorCode.value = res.data.code;
               console.log(errorCode.value);
-              if (errorCode.value === 400) { 
+              console.log(res.data);
+            //   if (errorCode.value === 400) { 
                 
-                  pathName.value = res.data.error.details[0].path[0];
-                  invalidMessage.value = res.data.error.details[0].message;
-                  console.log( pathName.value);
-                  console.log(invalidMessage.value);
-                  alert('')
-              }
+            //       pathName.value = res.data.error.details[0].path[0];
+            //       invalidMessage.value = res.data.error.details[0].message;
+            //       console.log( pathName.value);
+            //       console.log(invalidMessage.value);
+            //   }
           }
         }).catch(err=>{
             console.error(err);

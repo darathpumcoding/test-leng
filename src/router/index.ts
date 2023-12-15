@@ -22,7 +22,7 @@ const routes = [
       
       
       // AuthenticatorAssertionResponseComponent
-      {path: '/addUser',name: 'addUser',component: () => import('@/views/form/AddUser.vue'),},
+      {path: '/addUser',name: 'addUser',component: () => import('@/views/form/AddUser.vue'),},  
       {path: '/login',name: 'login',component: () => import('@/views/auth/Login.vue'),},
       {path: '/reset-password',name: 'reset-password',component: () => import('@/views/auth/ResetPassword.vue'),},
     ],

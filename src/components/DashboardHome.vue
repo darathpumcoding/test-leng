@@ -121,15 +121,25 @@
     }
 
     .info p {
-      padding-bottom: 1rem;
+      padding-bottom: 1.5rem;
       font-size: 1rem;
       font-weight: 900;
     }
 
-    .material-symbols-outlined {
-      font-size: 3rem;
-      color: 	#00953A;
+    .icon-info .material-symbols-outlined:nth-child(1) {
+      margin-top: 20px;
+      margin-right: -20px;
+      font-size: 5rem;
+
 
     }
+    .icon-info .material-symbols-outlined:nth-child(2) {
+      margin-top: 20px;
+      margin-left: 5px;
+      font-size: 2rem;
+
+
+    }
+    
   }
 </style>

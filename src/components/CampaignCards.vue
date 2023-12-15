@@ -8,18 +8,18 @@
             </div> -->
         </div>
         <div class="campaign-card">
-            <div class="parent-card" v-for="index in 4" :key="index">
+            <div class="parent-card" v-for="item in campaigns" :key="item.id">
                 <div class="name-campaign">
-                    <h3>Khmer new year</h3>
+                    <h3>{{item.campaign_name}}</h3>
 
                 </div>
                 <div class="card-image">
-                    <img src="https://techcrunch.com/wp-content/uploads/2020/04/GettyImages-1066818018.png" alt="">
+                    <img :src="item.campaign_image" alt="">
                 </div>
                 <div class="card-action-info">
                     <div class="name-date">
-                        <p>Date start: 01-26-2024</p>
-                        <p>Date end: 02-26-2024</p>
+                        <p>Start Date: {{ item.start_date.substring(0, 10) }}</p>
+                        <p>End Date: {{ item.end_date.substring(0, 10) }}</p>
                     </div>
                     <div class="action flex flex-row items-center">
                         <span class="material-symbols-outlined">
@@ -38,6 +38,26 @@
     </div>
 
 </template>
+<script setup>
+    import {ref, onMounted} from 'vue';
+import axios from 'axios';
+
+const campaigns = ref('')
+
+    const getCampaigns = () => {
+        axios.get('http://192.168.11.117:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
+            .then(res => {
+                console.log(res.data.data);
+                campaigns.value = res.data.data.data
+            }).catch(err => {
+                console.error(err.response.status)
+            })
+    }
+
+    onMounted(() => {
+        getCampaigns();
+    })
+</script>
 <style scoped>
     h2 {
         margin:auto;
@@ -66,12 +86,15 @@
         align-items: center;
     }
     .campaign-card .parent-card {
+        
         flex-wrap: wrap;
         height: 20%;
         width: 300px !important;
         margin: 15px;
         box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
         border: 2px solid #ffffff00;
+        margin-bottom: 60px;
+        margin-right: 40px;
     }
     .campaign-card:hover .parent-card:hover {
         background: 	#F4C300;
@@ -93,6 +116,7 @@
     .card-image img {
         /* margin-top: 0.25rem; */
         width: 100%;
+        height: 200px;
     }
 
     .card-action-info {
@@ -181,12 +205,25 @@
         hr{
             margin-left: 10px;
         }
-        .campaign-card{
-            margin-left: -50px;
+
+        .campaign-card .parent-card {
+            width: 250px !important;
+            margin-top: 0px;
+            margin-bottom:35px;
         }
-        .campaign-card .parent-card{
-            width:35%;
-            margin-bottom: 10%;
+        .name-campaign h3{
+            font-size: 1rem;
+        }
+        .card-action-info .name-date p{
+            font-size: 0.8rem !important;
+            width: 140px;
+        }
+        .action .material-symbols-outlined{
+            font-size: 2rem;
+        }
+        h2{
+            margin-top: -40px;
+            font-size: 1.5rem;
         }
     }
 </style>

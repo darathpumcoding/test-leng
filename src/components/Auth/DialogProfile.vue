@@ -21,13 +21,8 @@
                         </span>
                         <p>Edit Profile</p>
                     </BaseButton>
-                </div>
-                <BaseButton class="logout" @click="logout" type="primary-btn">
-                    <span class="material-symbols-outlined">
-                        logout
-                    </span>
-                    <p>Logout Account</p>
-                </BaseButton>
+                </div><Logout></Logout>
+                
             </div>
             <div class="user-loged">
                 <div class="img-header" v-if="!cookieEmail">
@@ -59,6 +54,7 @@
     import axios from 'axios';
     import {useRouter} from 'vue-router';
     import BaseButton from '../widget/BaseButton.vue';
+    import Logout from '../dialog/Logout.vue';
 
     const router = useRouter();
 
@@ -66,6 +62,7 @@
     const cookieFirstName = ref(Cookies.get('first_name'));
     const cookieLastName = ref(Cookies.get('last_name'));
     const cookieProfile = ref(Cookies.get('profile'));
+
     console.log(cookieEmail.value);
     const show = ref(false);
     const swhowSideBar = () => {
@@ -75,26 +72,11 @@
         show.value = false;
     }
 
-    const logout = () => {
-        axios.post('http://192.168.11.117:4545/router/logout', {}, {withCredentials: true, validateStatus: () => true}).then((res) => {
-            if (res.status == 200) {
-                alert(res.data.data.message);
-                Cookies.remove("email");
-                Cookies.remove("first_name");
-                Cookies.remove("last_name");
-                Cookies.remove("role");
-                Cookies.remove("profile");
-                window.location.reload('/')
-                // router.push('/');
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-    };
+ 
 </script>
 <style scoped>
     .dialog {
-        background: #fafcfa9c;
+        background: #fafcfa;
         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
         height: 400px;
         width: 300px;
@@ -102,7 +84,6 @@
 
     }
     .user_icon{
-        z-index: 1000;
         width: 60px;
         text-align: end;
     }
@@ -117,9 +98,9 @@
     a {
         text-decoration: none;
     }
-.profile{
-    border-radius: 100px;
-}
+    .profile{
+        border-radius: 100px;
+    }
     .active p a {
         color: white;
         text-decoration: none;

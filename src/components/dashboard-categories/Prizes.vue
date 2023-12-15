@@ -1,10 +1,10 @@
 <template>
-  <h2 class="text-header" style="text-align: center;">Prize</h2>
-  <div style="text-align: center;">
-    <p>This page for add prize, edit prize and delete prize. This page for add prize, edit prize and delete prize.</p>
-  </div>
- 
+  
   <div class="container">
+    <h2 class="text-header" style="text-align: center;">Prize</h2>
+    <div style="text-align: center;">
+      <p>This page for add prize, edit prize and delete prize. This page for add prize, edit prize and delete prize.</p>
+    </div>
     <session>
       <div class="button-create">
         <button>Add Prize</button>
@@ -91,9 +91,13 @@ const prizes = ref([
 
 <style scoped>
 .container {
-  justify-content: center;
   display: flex;
-  margin-top: 50px;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+  padding-top: 50px;
+  /* margin-top: 50px; */
 }
 table {
   border-collapse: collapse;

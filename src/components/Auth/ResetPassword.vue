@@ -100,6 +100,7 @@
          font-size: 1.5rem;
          color: white;
          font-weight: 400;
+
      }
      .btn:hover{
         background: #FDC400;

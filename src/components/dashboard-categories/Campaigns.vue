@@ -1,9 +1,9 @@
 <template>
     <div v-if="isAddCap" class="form-add-campaign">
-        <AddCampaign @formCancel="closeForm"></AddCampaign>
+        <AddCampaign @formCancel="closeForm" :campaign="campaign"></AddCampaign>
     </div>
     <div class="container " v-if="!isAddCap">
-        <session>
+        <section>
             <h2>All Campaigns</h2>
             <p id="campaign-desc" class="text-center mt-5 mb-10">Here is all the campaigns that we list as a table and
                 we can edit copy link and archive it.</p>
@@ -27,37 +27,44 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in campaigns" :key="item.id">
-                        <td>{{ item.campaign_name }}</td>
-                        <td><img width="100" src="../../assets/user_icon.png" alt=""></td>
-                        <td>{{ item.start_date }}</td>
-                        <td>{{ item.end_date }}</td>
-                        <td>{{ item.status }}</td>
-                        <td class="action-icon">
-                            <div class="edit">
+                        <td v-if="item.archive_campaign == false">{{ item.campaign_name }}</td>
+                        <td v-if="item.archive_campaign == false"><img class="image-campaign" :src="item.campaign_image"
+                                alt=""></td>
+                        <td v-if="item.archive_campaign == false">{{ item.start_date.substring(0, 10) }}</td>
+                        <td v-if="item.archive_campaign == false">{{ item.end_date.substring(0, 10) }}</td>
+                        <td v-if="item.archive_campaign == false">{{ item.status }}/</td>
+                        <td v-if="item.archive_campaign == false" class="action-icon">
+                            <div class="edit" @click="editCampaign(item.id)">
+                            
+
+                            <!-- <AddCampaign "> -->
                                 <span class="material-symbols-outlined">
                                     edit
                                 </span>
                                 <p>Edit</p>
+                            <!-- </AddCampaign> -->
                             </div>
+                           
                             <div class="copy">
                                 <span class="material-symbols-outlined">
                                     content_copy
                                 </span>
                                 <p>Copy</p>
                             </div>
-                            <div class="archive">
+                            <ArchiveCampaign :campaignId="item.id" :getCampaigns="getCampaigns"></ArchiveCampaign>
+                            <!-- <div class="archive" @click="archiveCampaign(item.id)">
                                 <span class="material-symbols-outlined">
                                     archive
                                 </span>
                                 <p>Archive</p>
-                            </div>
+                            </div> -->
                         </td>
                     </tr>
 
                 </tbody>
             </table>
-        </session>
-        <session>
+        </section>
+        <section>
             <h2 class="archieved" v-if="!isShowArchieved" @click="showArchieved">
                 <span class="material-symbols-outlined">arrow_drop_down</span>
                 Archived Campaigns
@@ -78,32 +85,49 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in campaigns" :key="item.id">
-                        <td>{{ item.campaign_name }}</td>
-                        <td><img width="100" src="../../assets/user_icon.png" alt=""></td>
-                        <td>{{ item.start_date }}</td>
-                        <td>{{ item.end_date }}</td>
-                        <td>{{ item.status }}</td>
-                        <td class="action-icon">
-                            <div class="restore">
+                        <td v-if="item.archive_campaign">{{ item.campaign_name }}</td>
+                        <td v-if="item.archive_campaign"><img class="image-campaign" :src="item.campaign_image" alt="">
+                        </td>
+                        <td v-if="item.archive_campaign">{{ item.start_date.substring(0, 10) }}</td>
+                        <td v-if="item.archive_campaign">{{ item.end_date.substring(0, 10) }}</td>
+                        <td v-if="item.archive_campaign">{{ item.status }}</td>
+                        <td v-if="item.archive_campaign" class="action-icon">
+
+                            <UnArchiveCampaign :campaignId="item.id" :getCampaigns="getCampaigns"></UnArchiveCampaign>
+                            <!-- <div class="restore" @click="unArchiveCampaign(item.id)">
                                 <span class="material-symbols-outlined">
                                     unarchive
                                 </span>
                                 <p>Restore</p>
-                            </div>
+                            </div> -->
                         </td>
                     </tr>
 
                 </tbody>
             </table>
-        </session>
+        </section>
     </div>
 </template>
 <script setup>
     import {ref, onMounted, defineProps} from "vue";
     import axios from 'axios';
     import AddCampaign from '../form/AddCampaign.vue';
+    import ArchiveCampaign from "../dialog/ArchiveCampaign.vue";
+    import UnArchiveCampaign from "../dialog/UnArchiveCampaign.vue";
+
+
     const campaigns = ref('')
     const isAddCap = ref(false);
+    const campaign_name = ref('');
+    const campaign_image = ref('');
+    const start_date = ref('');
+    const end_date = ref('');
+    const participant = ref('');
+    const prize_id = ref('');
+    const quantity = ref('');
+    const participantsFile = ref('');
+
+
     const showForm = () => {
         isAddCap.value = true;
     }
@@ -122,18 +146,36 @@
         isShowArchieved.value = false;
     }
 
+    const campaign = ref('')
+    const editCampaign = (campaignId) => {
+        campaign.value = campaigns.value.find(item => item.id === campaignId);
+        console.log(campaign.value);
+        isAddCap.value = true;
+        
+        // axios.put(`http://192.168.11.117:4545/campaign/updateCampaign/${id}`,{archive_campaign:false} ,{withCredentials: true, validateStatus: () => true})
+        // .then((res)=>{
+        //     if (res.status == 200){
+        //         console.log(res.data);
+        //         getCampaigns();
+        //     }
+        // }).catch((err)=>{
+        //     console.error(err);
+        // })
+
+    }
 
 
 
-    const getCampaigns = ()=>{
-    axios.get('http://192.168.11.117:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
-    .then(res => {
-      console.log(res.data.data);
-      campaigns.value = res.data.data.data
-  }).catch(err => {
-      console.error(err.response.status)
-  })
-}
+
+    const getCampaigns = () => {
+        axios.get('http://192.168.11.117:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
+            .then(res => {
+                console.log(res.data.data);
+                campaigns.value = res.data.data.data
+            }).catch(err => {
+                console.error(err.response.status)
+            })
+    }
 
     onMounted(() => {
         getCampaigns();
@@ -164,9 +206,11 @@
     h2 {
         text-align: center;
         margin-bottom: 0%;
-        font-size: 2rem;
-        font-weight: 600;
         margin-top: 3%;
+    }
+
+    .image-campaign {
+        width: 100px;
     }
 
     .create-campaign {
@@ -189,6 +233,10 @@
 
 
     }
+
+    /* .all-campaigns{
+        width: 500px;
+    } */
 
     table {
         border-collapse: collapse;
@@ -274,5 +322,23 @@
         padding: 0.5rem;
         transition: all 0.5s;
         cursor: pointer;
+    }
+
+    @media (max-width:1080px) {
+
+        th,
+        td {
+            font-size: 0.9rem;
+            /* background: #000; */
+        }
+
+        td {
+            height: 80px !important;
+        }
+
+        .image-campaign {
+            width: 50px;
+        }
+
     }
 </style>

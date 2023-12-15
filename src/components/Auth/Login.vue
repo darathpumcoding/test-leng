@@ -1,7 +1,11 @@
 <template>
     <TheTransition id="transition">
-        <v-alert class="mr-5" v-model="alert" width="40%" type="error" title="Error Invalid !" v-if="errorCode == 404"
-            :text=invalidMessage closable></v-alert>
+        <v-alert class="mr-5" v-model="alert" width="40%" type="error" title="Error Invalid !" v-if="errLog"
+            :text=invalidMessage></v-alert>
+    </TheTransition>
+    <TheTransition id="transition">
+        <v-alert class="mr-5" v-model="alert" width="40%" type="success" title="Login Success !" v-if="isLogin"
+             >You login success.</v-alert>
     </TheTransition>
     <div class="login-page">
         <div class="login">
@@ -11,13 +15,13 @@
                 <input type="email" id="email" class="resize-none focus:outline-none" placeholder="Enter your email*"
                     v-model="email">
                 <span
-                    :class="pathName == 'email'? 'mt-3 validation-message':'mt-3 validation-message-none'">{{invalidMessage}}.</span>
+                    :class="pathName == 'email'? 'mt-2 validation-message':'mt-2 validation-message-none'">{{invalidMessage}}.</span>
                 <input type="password" id="password" class="resize-none focus:outline-none"
                     placeholder="Enter your password*" v-model="password">
                 <span
-                    :class="pathName == 'password' ? 'mt-3 validation-message':'mt-3 validation-message-none'">{{invalidMessage}}.</span>
-                <router-link class="mt-5" to="/reset-password">Reset Password</router-link>
-                <BaseButton type="primary-btn" @click="login" class="btn-login">
+                    :class="pathName == 'password' ? 'mt-2 mb-3 validation-message':'mt-2 validation-message-none'">{{invalidMessage}}.</span>
+                <router-link class="btn-rest" to="/reset-password">Reset Password</router-link>
+                <BaseButton type="primary-btn" @click="login" class="btn-login" :loading="loading">
                     LOGIN</BaseButton>
             </form>
         </div>
@@ -33,9 +37,6 @@
     import TheTransition from "../widget/TheTransition.vue";
     import {validatePassword, validateEmail} from "../../validation";
 
-
-    console.log(validatePassword);
-
     // const emailInvalid = ref('');
     // const alert = ref(false)
     const invalidMessage = ref('');
@@ -44,56 +45,73 @@
     const pathName = ref("");
     const password = ref("");
     const email = ref("");
+    const loading = ref(false);
+    const isLogin = ref(false);
+    const errLog = ref(false);
 
     const login = () => {
-
         const errPassword = validatePassword(password.value);
         const errEmail = validateEmail(email.value);
-        console.log("error password: ", errPassword);
-        if (errPassword) {
-            pathName.value = 'password';
-            invalidMessage.value = errPassword;
-            return;
-        }if (errEmail){
+        if (errEmail) {
             pathName.value = 'email';
             invalidMessage.value = errEmail;
             return;
         }
-
+        if (errPassword) {
+            pathName.value = 'password';
+            invalidMessage.value = errPassword;
+            return;
+        }
+        loading.value = true;
         axios.post('http://192.168.11.117:4545/router/login', {
             email: email.value, password: password.value,
         }, {withCredentials: true, validateStatus: () => true}).then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             if (res.status == 200) {
-                console.log(res.data);
+                // console.log(res.data);
                 Cookies.set("first_name", res.data.data.first_name, {expires: 30});
                 Cookies.set("last_name", res.data.data.last_name, {expires: 30});
                 Cookies.set("email", res.data.data.email, {expires: 30});
                 Cookies.set("role", res.data.data.role, {expires: 30});
                 Cookies.set("profile", res.data.data.profile, {expires: 30});
-                if (res.data.data.role == "admin") {
-                    router.push('/');
-                }
+                // if (res.data.data.role == "admin") {
+                    isLogin.value = true;
+                    setTimeout(()=>{
+                        isLogin.value = false;
+                        // router.push('/');
+                    },2000)
+                // }
+                
 
 
             }
             else {
                 errorCode.value = res.data.code;
-                console.log(errorCode.value);
-                if (errorCode.value === 402) {
-                    pathName.value = res.data.error.details[0].path[0];
-                    invalidMessage.value = res.data.error.details[0].message;
-                    console.log(pathName.value);
-                    console.log(invalidMessage.value);
-                }
-                else if (errorCode.value === 404) {
+               if (errorCode.value === 404) {
                     invalidMessage.value = res.data.error;
                     console.log(invalidMessage.value);
+                    loading.value = false
+                    errLog.value = true
+                    setTimeout(()=>{
+                        errLog.value = false;
+                        // router.push('/');
+                    },2000)
+                }
+                if (errorCode.value === 400){
+                    invalidMessage.value = res.data.error;
+                    console.log(invalidMessage.value);
+                    loading.value = false
+                    errLog.value = true
+                    setTimeout(()=>{
+                        errLog.value = false;
+                        // router.push('/');
+                    },2000)
                 }
             }
         }).catch(err => {
             console.error(err);
             console.log(err.response.status)
+            loading.value = false
         });
     };
 
@@ -147,23 +165,14 @@
         background: #e4dfdf;
         align-items: center;
         margin-top: -50px;
-        padding: 100px 100px 50px 100px;
+        padding: 100px 50px 50px 50px;
     }
 
-    .shap {
+    /* .shap {
         width: 800px;
         margin-bottom: 50px;
-    }
+    } */
 
-    #triangle-down {
-        margin-top: 0;
-        text-align: start;
-        width: 0;
-        height: 0;
-        border-left: 0px solid transparent;
-        border-right: 50px solid transparent;
-        border-top: 50px solid #009639;
-    }
 
     .login-page a {
         font-size: 1.5rem;
@@ -230,8 +239,8 @@
     }
 
     /* .valid{
-       mt
-   } */
+         mt
+     } */
 
     .validation-message {
         color: #B52555;
@@ -241,27 +250,42 @@
     .validation-message-none {
         opacity: 0;
     }
-
-    #talkbubble {
-        width: auto;
-        padding: 10px;
-        height: 50px;
-        background: red;
-        position: relative;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
+    @media (max-width:1080px) {
+        
+    .login-page img {
+        width: 250px;
+        margin-bottom: 30px;
+    }
+        h1 {
+        text-align: center;
+        width: 350px;
+        padding: 15px;
+        font-size: 2rem;
+  
+        }
+        .login-page input {
+            width: 400px;
+            margin-top: 15px;
+            padding: 8px 0px 8px 8px;
+            font-size: 1rem;
+   
+        }
+    
+    input::placeholder {
+        font-size: 1rem;
+    }
+    .btn-rest.btn-rest{
+        font-size: 1rem;
+        /* margin-top: 0px; */
+    }
+    .login-page .btn-login {
+        width: 100px;
+        height: 40px;
+        margin-top: 40px;
+        padding: 0.5rem;
+        font-size: 1rem;
+        color: white;
     }
 
-    #talkbubble:before {
-        content: "";
-        position: absolute;
-        right: 100%;
-        top: 12px;
-        width: 0;
-        height: 0;
-        border-top: 13px solid transparent;
-        border-right: 26px solid red;
-        border-bottom: 13px solid transparent;
     }
 </style>
