@@ -83,6 +83,7 @@
                 </div>
 
                 <BaseButton type="primary-btn" class=" btn-register" @click="register">Submit</BaseButton>
+                <span id="route-login">Already have an account? <router-link to="/login">Login</router-link></span>
             </div>
         </form>
 
@@ -412,7 +413,15 @@
         border-right: 5px solid transparent;
         border-left: 5px solid transparent;
     }
-
+    #route-login{
+        font-size: 1rem;
+        color: #000000;
+        padding-top: 20px;
+    }
+    #route-login a{
+        font-size: 1rem;
+        color: #009639;
+    }
     @media (max-width:1080px) {
         .register-form img {
             width: 200px;

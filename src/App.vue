@@ -1,6 +1,6 @@
 <template>
   
-  <Dashboard v-if="$route.path !=='/login' && $route.path !=='/reset-password'  && $route.path !=='/addUser' "></Dashboard>
+  <Dashboard v-if="$route.path !=='/login' && $route.path !=='/reset-password'  && $route.path !=='/register' "></Dashboard>
   <div class="main two" v-else>
     <router-view></router-view>
 </div>

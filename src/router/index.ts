@@ -69,6 +69,7 @@ const routes = [
 
 
       // AuthenticatorAssertionResponseComponent    
+      { path: '/register', name: 'register', component: () => import('@/views/form/AddUser.vue'), },
       { path: '/login', name: 'login', component: () => import('@/views/auth/Login.vue'), },
       { path: '/reset-password', name: 'reset-password', component: () => import('@/views/auth/ResetPassword.vue'), },
     ],
@@ -82,7 +83,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
 
-  if (to.path !== '/login' && to.path !== '/reset-password') {
+  if (to.path !== '/login' && to.path !== '/reset-password' && to.path !== '/register') {
     console.log('Check user login')
     await axios.get('http://192.168.11.116:4545/user/session', {
       withCredentials: true,

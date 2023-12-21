@@ -23,6 +23,7 @@
                 <router-link class="btn-rest" to="/reset-password">Reset Password</router-link>
                 <BaseButton type="primary-btn" @click="login" class="btn-login" :loading="loading">
                     LOGIN</BaseButton>
+                <span id="route-register">Don't have an account? <router-link to="/register">Register</router-link></span>
             </form>
         </div>
 
@@ -130,7 +131,7 @@
 <style scoped>
     h1 {
         text-align: center;
-        width: 800px;
+        width: 500px;
         padding: 20px;
         font-size: 3rem;
         color: white;
@@ -198,7 +199,7 @@
     .login-page .btn-login {
         width: 200px;
         height: 60px;
-        margin-top: 60px;
+        margin-top: 40px;
         padding: 1rem;
         font-size: 1.5rem;
         color: white;
@@ -232,6 +233,15 @@
     .validation-message-none {
         opacity: 0;
     }
+    #route-register{
+        font-size: 1rem;
+        color: #000000;
+        padding-top: 20px;
+    }
+    #route-register a{
+        font-size: 1rem;
+        color: #009639;
+    }
     @media (max-width:1080px) {
         
     .login-page img {
@@ -263,7 +273,7 @@
     .login-page .btn-login {
         width: 100px;
         height: 40px;
-        margin-top: 40px;
+        margin-top: 30px;
         padding: 0.5rem;
         font-size: 1rem;
         color: white;

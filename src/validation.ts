@@ -53,3 +53,6 @@ export function validatePhone(phone?: string): string | undefined {
     if (!datePattern.test(date)) return "Invalid date format. Please use the format YYYY-MM-DD";
     return; 
   }
+  export function validateRole (role: string): string | undefined{
+    if (!role) return "Role is required"
+  }
