@@ -21,26 +21,35 @@ export function validatePhone(phone?: string): string | undefined {
     if (!last_name) return "Last name is required"
   }
 
+
   export function validateFile(file?: File): string | undefined {
     if (!file) return "File is required";
-    const allowedExtensions = [".csv"];
+    
     const fileExtension = file.name.split(".").pop()?.toLowerCase();
-    if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
-      return "Invalid file type. Only CSV files are allowed.";
+    
+    if (!fileExtension || fileExtension !== "csv") {
+      return "Invalid file type. Only CSV files are allowed";
     }
-    // You can add more validations here if needed, such as file size or file content.
+    
   
-    return undefined; // File is valid
+  }
+  
+  export function validateImage(image?: File): string | undefined {
+    if (!image) return "File is required";
+  
+    const fileExtension = image.name.split(".").pop()?.toLowerCase();
+    if (!fileExtension || (fileExtension !== "jpg" && fileExtension !== "jpeg")) {
+      return "Invalid file type. Only JPEG files (.jpg or .jpeg) are allowed.";
+    }
   }
 
-  export function validateImage(file?: File): string | undefined {
-    if (!file) return "File is required";
-    const allowedExtensions = [".jpg", ".jpeg"];
-    const fileExtension = file.name.split(".").pop()?.toLowerCase();
-    if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
-      return "Invalid file type. Only JPEG files are allowed.";
-    }
-    // You can add more validations here if needed, such as file size or file content.
-  
-    return undefined; // File is valid
+  export function validateCampaignName(campaign_name?:String): string | undefined {
+    if (!campaign_name) return "Campaign name is required"
+  }
+
+  export function validateDate(date?: string): string | undefined {
+    if (!date) return "Date is required";
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(date)) return "Invalid date format. Please use the format YYYY-MM-DD";
+    return; 
   }

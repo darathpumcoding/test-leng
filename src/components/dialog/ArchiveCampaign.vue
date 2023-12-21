@@ -42,7 +42,7 @@
 
     const archiveCampaign = () => {
         loading.value = true;
-        axios.put(`http://192.168.11.117:4545/campaign/updateArchiveCampaign/${props.campaignId}`, {archive_campaign: true}, {withCredentials: true, validateStatus: () => true})
+        axios.put(`http://192.168.11.116:4545/campaign/updateArchiveCampaign/${props.campaignId}`, {archive_campaign: true}, {withCredentials: true, validateStatus: () => true})
         .then(res =>{
             console.log(res);
             if(res.status == 200) {

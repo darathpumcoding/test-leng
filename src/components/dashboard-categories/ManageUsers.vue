@@ -19,7 +19,7 @@
                         <th>Profile</th>
                         <th>Username</th>
                         <th>Role</th>
-                        <th v-if="role == 'admin'">Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                         <td v-if="item.user_archive == false"><img class="profile" :src="item.profile" alt=""></td>
                         <td v-if="item.user_archive == false">{{ item.first_name }} {{item.last_name}}</td>
                         <td v-if="item.user_archive == false">{{ item.role }}</td>
-                        <td v-if="item.user_archive == false && role == 'admin'">
+                        <td v-if="item.user_archive == false">
                             <div class="action-user pl-2 pr-2" v-if="item.user_lock == false ">
                                 <UpdateUser :userId="item.id" :user="user" :editUser="editUser"></UpdateUser>
                                 <UserLock :userId="item.id" :getUsers="getUsers"></UserLock>
@@ -79,7 +79,7 @@
                         <th>Profile</th>
                         <th>Username</th>
                         <th>Role</th>
-                        <th v-if="role == 'admin'">Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,7 +89,7 @@
                         <td v-if="item.user_archive == true">{{ item.first_name }} {{item.last_name}}</td>
                         <td v-if="item.user_archive == true">{{ item.role }}</td>
 
-                        <td v-if="item.user_archive == true && role == 'admin'">
+                        <td v-if="item.user_archive == true">
 
                             <UserUnArchive :userId="item.id" :getUsers="getUsers">
 
@@ -117,7 +117,7 @@
     const users = ref('')
     const role = ref(Cookies.get('role'));
     const getUsers = () => {
-        axios.get('http://192.168.11.117:4545/user/getAllUsers', {withCredentials: true, validateStatus: () => true})
+        axios.get('http://192.168.11.116:4545/user/getAllUsers', {withCredentials: true, validateStatus: () => true})
             .then(res => {
                 console.log(res.data.data);
                 users.value = res.data.data

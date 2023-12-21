@@ -130,7 +130,7 @@
         formData.set('prizes',JSON.stringify(arrPrzes.value))
 
         console.log(formData);
-        axios.post('http://192.168.11.117:4545/campaign/createCampaign',formData, {withCredentials: true, validateStatus: () => true})
+        axios.post('http://192.168.11.116:4545/campaign/createCampaign',formData, {withCredentials: true, validateStatus: () => true})
         .then((res) =>{
             console.log(res.data);
             if (res.status == 200){
@@ -145,7 +145,7 @@
     }
     // getPrzes
     const getPrizes = () => {
-        axios.get('http://192.168.11.117:4545/prize/getAllPrizes', {withCredentials: true, validateStatus: () => true})
+        axios.get('http://192.168.11.116:4545/prize/getAllPrizes', {withCredentials: true, validateStatus: () => true})
             .then(res => {
                 console.log(res.data.data.data);
                 prizes.value = res.data.data.data

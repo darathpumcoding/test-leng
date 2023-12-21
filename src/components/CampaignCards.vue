@@ -3,8 +3,8 @@
         <div class="mt-20 ">
             <!-- <div class="campaign-active" >
                 <div class="line"></div> -->
-                <h2>Active Campaigns</h2>
-                <!-- <div class="line"></div>
+            <h2>Active Campaigns</h2>
+            <!-- <div class="line"></div>
             </div> -->
         </div>
         <div class="campaign-card">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        
+
         <router-link to="/campaigns">
             <div class="see-more">
                 <p>View All</p>
@@ -40,12 +40,12 @@
 </template>
 <script setup>
     import {ref, onMounted} from 'vue';
-import axios from 'axios';
+    import axios from 'axios';
 
-const campaigns = ref('')
+    const campaigns = ref('')
 
     const getCampaigns = () => {
-        axios.get('http://192.168.11.117:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
+        axios.get('http://192.168.11.116:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
             .then(res => {
                 console.log(res.data.data);
                 campaigns.value = res.data.data.data
@@ -60,8 +60,8 @@ const campaigns = ref('')
 </script>
 <style scoped>
     h2 {
-        margin:auto;
-        color: 	#00953A;
+        margin: auto;
+        color: #00953A;
         text-align: center;
         display: flex;
         flex-direction: row;
@@ -70,8 +70,9 @@ const campaigns = ref('')
         padding: 1rem;
         font-size: 1.7rem;
         font-weight: bold;
-        margin-top: 50px; 
+        margin-top: 50px;
     }
+
     .campaign-card {
         display: flex;
         flex-direction: row;
@@ -79,16 +80,18 @@ const campaigns = ref('')
         flex-wrap: wrap;
         margin-top: 40px;
     }
-    .campaign-active{
+
+    .campaign-active {
         display: flex;
         flex-direction: row;
         margin-top: 50px;
         align-items: center;
     }
+
     .campaign-card .parent-card {
-        
+
         flex-wrap: wrap;
-        height: 20%;
+        height: 330px;
         width: 300px !important;
         margin: 15px;
         box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
@@ -96,27 +99,29 @@ const campaigns = ref('')
         margin-bottom: 60px;
         margin-right: 40px;
     }
+
     .campaign-card:hover .parent-card:hover {
-        background: 	#F4C300;
+        background: #F4C300;
     }
-   .name-campaign{
-        background: 	#00953A;
+
+    .name-campaign {
+        background: #00953A;
         color: #fffffe;
         padding: 0.5rem;
         font-size: 1.5rem;
         text-align: center;
-   }
+    }
+
     .card-image {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        
+
     }
-    
+
     .card-image img {
-        /* margin-top: 0.25rem; */
-        width: 100%;
         height: 200px;
+        width: 100%;
     }
 
     .card-action-info {
@@ -125,7 +130,7 @@ const campaigns = ref('')
         justify-content: space-between;
         align-items: center;
         padding: 0.5rem;
-        background: 	#00953A;
+        background: #00953A;
         width: 100%;
     }
 
@@ -135,14 +140,16 @@ const campaigns = ref('')
         transition: all 0.5s;
 
     }
+
     .action .material-symbols-outlined {
         color: #ffffff;
         margin-right: 0.5rem;
         font-size: 3.5rem;
     }
-    .action .material-symbols-outlined:hover{
+
+    .action .material-symbols-outlined:hover {
         cursor: pointer;
-        color: 	#F4C300;
+        color: #F4C300;
         transition: all 0.5s;
 
     }
@@ -152,14 +159,15 @@ const campaigns = ref('')
         margin-bottom: 5px;
         color: #fffffe;
     }
+
     .name-date h3 {
         font-size: 1.5rem;
         margin-bottom: 5px;
         color: #fffffe;
-        white-space: nowrap; 
-        width: 100%; 
+        white-space: nowrap;
+        width: 100%;
         overflow: hidden;
-        text-overflow: ellipsis; 
+        text-overflow: ellipsis;
     }
 
     .see-more {
@@ -171,30 +179,33 @@ const campaigns = ref('')
         /* margin-right: 45px; */
     }
 
-   .line {
+    .line {
         border: 1px solid #000000;
         height: 2px;
         width: 45%;
     }
-    
+
     .see-more p {
-        background:#F4C300;
+        background: #F4C300;
         width: 150px;
         text-align: center;
         font-size: 1rem;
         font-weight: bold;
-        color: 	#00953A;
+        color: #00953A;
         transition: all 1s;
         padding: 0.5rem;
     }
-    .see-more p:hover{
-        background: 	#00953A;
+
+    .see-more p:hover {
+        background: #00953A;
         color: #fffffe;
         transition: all 1s;
     }
-.page-campaign a{
-    text-decoration: none;
-}
+
+    .page-campaign a {
+        text-decoration: none;
+    }
+
     @media (max-width:1080px) {
         h2 {
             font-size: 1rem;
@@ -202,26 +213,37 @@ const campaigns = ref('')
             margin-left: 10px;
 
         }
-        hr{
+
+        hr {
             margin-left: 10px;
         }
 
         .campaign-card .parent-card {
-            width: 250px !important;
+            height: 258px;
+            width: 245px !important;
             margin-top: 0px;
-            margin-bottom:35px;
+            margin-bottom: 55px;
         }
-        .name-campaign h3{
+
+        .card-image img {
+            height: 150px;
+            width: 100%;
+        }
+
+        .name-campaign h3 {
             font-size: 1rem;
         }
-        .card-action-info .name-date p{
+
+        .card-action-info .name-date p {
             font-size: 0.8rem !important;
             width: 140px;
         }
-        .action .material-symbols-outlined{
+
+        .action .material-symbols-outlined {
             font-size: 2rem;
         }
-        h2{
+
+        h2 {
             margin-top: -40px;
             font-size: 1.5rem;
         }

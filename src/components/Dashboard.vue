@@ -2,7 +2,7 @@
     <div class="grid-container">
         <div :class="show == true ? 'dashboard green sidebar-left':'dashboard green sidebar-left-dialog'">
             <span id="menu" v-if="!show" class="material-symbols-outlined text-white" @click="swhowSideBar">menu</span>
-            <span v-else class="material-symbols-outlined close"
+            <span v-else class="material-symbols-outlined w-100 text-start pl-5 close"
                 @click="blockSideBar">close</span>
             <router-link to="/" v-if="show"><img src="../assets/smart-logo.png" alt=""></router-link>
             <hr width="90%" style="margin: auto; margin-top: 18px; border: 2px solid white; width: 100%;">
@@ -43,11 +43,12 @@
     </div>
 </template>
 <script setup>
-    import {ref} from 'vue';
+    import {ref,onMounted} from 'vue';
     import Cookies from "js-cookie";
     import DialogProfile from './auth/DialogProfile.vue';
+    import axios from 'axios';
 
-    const cookieFirstName = ref(Cookies.get('first_name'));
+    const cookieFirstName = ref('');
     const show = ref(false);
     const swhowSideBar = () => {
         show.value = true;
@@ -56,6 +57,20 @@
         show.value = false;
     }
 
+  const getSessionData =()=>{
+        axios.get('http://192.168.11.116:4545/user/session', {withCredentials: true, validateStatus: () => true})
+        .then((res)=>{
+            if (res.status == 200){
+                console.log(res.data);
+                cookieFirstName.value = res.data.data.session_data.first_name;
+            }
+        }).catch((err)=>{
+            console.error(err);
+        })
+    }
+    onMounted(()=>{
+        getSessionData();
+    })
 </script>
 
 <style scoped>

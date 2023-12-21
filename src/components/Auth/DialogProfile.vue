@@ -2,33 +2,34 @@
     <v-menu>
         <template v-slot:activator="{ props }">
             <!-- <img  icon="mdi-account-circle-outline" class="btn" ></img> -->
-            <img v-if="!cookieEmail" class='user_icon btn' src="../../assets/user_icon.png" alt="" v-bind="props">
-            <img v-else class="profile" :src="cookieProfile" width="50" alt="" v-bind="props">
+            <img v-if="!dataSessions" class='user_icon btn' src="../../assets/user_icon.png" alt="" v-bind="props">
+            <img v-else id="profile" :src="dataSessions.profile" alt="" v-bind="props">
         </template>
         <div class="dialog">
-            <div v-if="cookieEmail" class="user-logouted">
+            <div v-if="dataSessions !=''" class="user-logouted">
                 <div class="user-info">
-                    <img :src="cookieProfile" alt="">
-                    <p class="name">{{cookieFirstName}} {{cookieLastName}}</p>
-                    <p class="email">{{cookieEmail}}</p>
+                    <img :src="dataSessions.profile" alt="">
+                    <p class="name">{{dataSessions.first_name}} {{dataSessions.last_name}}</p>
+                    <p class="email">{{dataSessions.email}}</p>
                 </div>
                 <router-link class="manage-user" to="/manage-user">Manage Your Account</router-link>
                 <div class="change-profile">
-                    <input type="file">
+                    <input type="file" v-on:change="handleFileChange">
                     <BaseButton class="btn-change-profile" type="primary-btn">
                         <span class="material-symbols-outlined">
                             assignment_ind
                         </span>
                         <p>Edit Profile</p>
                     </BaseButton>
-                </div><Logout></Logout>
-                
+                </div>
+                <Logout></Logout>
+
             </div>
-            <div class="user-loged">
-                <div class="img-header" v-if="!cookieEmail">
+            <div v-else class="user-loged">
+                <div class="img-header">
                     <img src="../../assets/smart-logo2.png">
                 </div>
-                <router-link v-if="!cookieEmail" to="/login">
+                <router-link to="/login">
                     <BaseButton class="btn-login" type="primary-btn">
                         <span class="material-symbols-outlined">
                             how_to_reg
@@ -36,7 +37,7 @@
                         <p>Login Account</p>
                     </BaseButton>
                 </router-link>
-                <router-link v-if="!cookieEmail" to="/">
+                <router-link to="/">
                     <BaseButton class="btn-register" type="primary-btn">
                         <span class="material-symbols-outlined">
                             how_to_reg
@@ -49,7 +50,7 @@
     </v-menu>
 </template>
 <script setup>
-    import {ref} from 'vue';
+    import {ref, onMounted} from 'vue';
     import Cookies from "js-cookie";
     import axios from 'axios';
     import {useRouter} from 'vue-router';
@@ -62,6 +63,8 @@
     const cookieFirstName = ref(Cookies.get('first_name'));
     const cookieLastName = ref(Cookies.get('last_name'));
     const cookieProfile = ref(Cookies.get('profile'));
+    const dataSessions = ref('');
+    const newProfile = ref('');
 
     console.log(cookieEmail.value);
     const show = ref(false);
@@ -72,7 +75,44 @@
         show.value = false;
     }
 
- 
+    async function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+
+    const handleFileChange = async (event) => {
+        newProfile.value = await getBase64(event.target.files[0]);
+        // console.log(newProfile.value);
+        await axios.put(`http://192.168.11.116:4545/user/updateUserImageProfile/${dataSessions.value.id}`,
+            {profile: newProfile.value},
+            {withCredentials: true, validateStatus: () => true})
+            .then(res => {
+                if (res.status == 200) {
+                    getSessionData();
+                }
+            }).catch(err => {
+                console.error(err)
+            })
+    }
+
+    const getSessionData = () => {
+        axios.get('http://192.168.11.116:4545/user/session', {withCredentials: true, validateStatus: () => true})
+            .then((res) => {
+                if (res.status == 200) {
+                    dataSessions.value = res.data.data.session_data;
+                }
+            }).catch((err) => {
+                console.error(err);
+            })
+    }
+    onMounted(() => {
+        getSessionData();
+    })
 </script>
 <style scoped>
     .dialog {
@@ -83,10 +123,12 @@
         border-radius: 10px;
 
     }
-    .user_icon{
+
+    .user_icon {
         width: 60px;
         text-align: end;
     }
+
     .dialog .manage-user {
         display: flex;
         flex-direction: row;
@@ -98,9 +140,13 @@
     a {
         text-decoration: none;
     }
-    .profile{
+
+    #profile {
+        width: 55px;
+        height: 55px !important;
         border-radius: 100px;
     }
+
     .active p a {
         color: white;
         text-decoration: none;
@@ -134,7 +180,6 @@
     }
 
     .change-profile .btn-change-profile {
-        /* background: #9a9e9b; */
         padding: 0.5rem;
         width: 250px;
         display: flex;
@@ -155,6 +200,7 @@
 
     .user-info img {
         margin: 1rem;
+        height: 90px;
         width: 90px;
         border-radius: 100px;
     }
@@ -176,7 +222,6 @@
     }
 
     .dialog .logout {
-        /* background: #9a9e9b; */
         padding: 0.5rem;
         width: 250px;
         display: flex;
@@ -220,9 +265,9 @@
     .user-loged .img-header {
         width: 300px;
         text-align: center;
-        
+
     }
-    
+
     .img-header img {
         margin: auto;
         width: 150px;

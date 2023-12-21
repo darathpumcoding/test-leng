@@ -45,7 +45,7 @@
 
 const logout = () => {
         loading.value = true;
-        axios.post('http://192.168.11.117:4545/router/logout', {}, {withCredentials: true, validateStatus: () => true}).then((res) => {
+        axios.post('http://192.168.11.116:4545/router/logout', {}, {withCredentials: true, validateStatus: () => true}).then((res) => {
             if (res.status == 200) {
                 Cookies.remove("email");
                 Cookies.remove("first_name");
@@ -53,7 +53,7 @@ const logout = () => {
                 Cookies.remove("role");
                 Cookies.remove("profile");
                 setTimeout(()=>{
-                    window.location.reload('/')
+                    window.location.href=('/login')
                 },2000)
             }
         }).catch((error) => {

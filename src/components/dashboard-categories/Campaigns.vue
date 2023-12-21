@@ -1,18 +1,22 @@
 <template>
-    <div v-if="isAddCap" class="form-add-campaign">
-        <AddCampaign @formCancel="closeForm" :campaign="campaign"></AddCampaign>
+    <div v-if="isAddCap && !isUpdateCap" class="form-add-campaign">
+        <AddCampaign @formCancel="closeForm"></AddCampaign>
     </div>
-    <div class="container " v-if="!isAddCap">
+    <div v-if="isUpdateCap" class="form-update-campaign">
+        <UpdateCampaign @formCancel="closeForm" :campaign="campaign" :getCampaigns="getCampaigns"></UpdateCampaign>
+    </div>
+    <div class="container " v-if="!isAddCap && !isUpdateCap">
         <section>
             <h2>All Campaigns</h2>
             <p id="campaign-desc" class="text-center mt-5 mb-10">Here is all the campaigns that we list as a table and
                 we can edit copy link and archive it.</p>
             <div class="create-campaign">
-                <button id="btn-add_campaign" @click="showForm">
+                <BaseButton type="primary-btn" class="text-white pt-2 pb-8 " @click="showForm">
                     <i class="material-symbols-outlined">
                         add
                     </i>
-                    Add Campaigns</button>
+                    Add Campaigns
+                </BaseButton>
             </div>
             <table class="all-campaigns">
                 <thead>
@@ -32,19 +36,22 @@
                                 alt=""></td>
                         <td v-if="item.archive_campaign == false">{{ item.start_date.substring(0, 10) }}</td>
                         <td v-if="item.archive_campaign == false">{{ item.end_date.substring(0, 10) }}</td>
-                        <td v-if="item.archive_campaign == false">{{ item.status }}/</td>
+                        <td v-if="!item.archive_campaign && isExpired(item)">Expired</td>
+                        <td v-if="!item.archive_campaign && isActive(item)">Active</td>
+                        <td v-if="!item.archive_campaign && isUpcoming(item)">Upcoming</td>
+
                         <td v-if="item.archive_campaign == false" class="action-icon">
                             <div class="edit" @click="editCampaign(item.id)">
-                            
 
-                            <!-- <AddCampaign "> -->
+
+                                <!-- <AddCampaign "> -->
                                 <span class="material-symbols-outlined">
                                     edit
                                 </span>
                                 <p>Edit</p>
-                            <!-- </AddCampaign> -->
+                                <!-- </AddCampaign> -->
                             </div>
-                           
+
                             <div class="copy">
                                 <span class="material-symbols-outlined">
                                     content_copy
@@ -109,15 +116,21 @@
     </div>
 </template>
 <script setup>
-    import {ref, onMounted, defineProps} from "vue";
+    import {ref, onMounted, defineProps, computed,defineExpose} from "vue";
     import axios from 'axios';
     import AddCampaign from '../form/AddCampaign.vue';
+    import UpdateCampaign from '../form/UpdateCampaign.vue';
     import ArchiveCampaign from "../dialog/ArchiveCampaign.vue";
     import UnArchiveCampaign from "../dialog/UnArchiveCampaign.vue";
+    import BaseButton from "../widget/BaseButton.vue";
+    import {useRouter} from "vue-router";
+
+    const router = useRouter();
 
 
     const campaigns = ref('')
     const isAddCap = ref(false);
+    const isUpdateCap = ref(false);
     const campaign_name = ref('');
     const campaign_image = ref('');
     const start_date = ref('');
@@ -130,10 +143,12 @@
 
     const showForm = () => {
         isAddCap.value = true;
+        // isUpdateCap.value = true;
     }
 
     const closeForm = () => {
         isAddCap.value = false;
+        isUpdateCap.value = false;
     }
 
     const isShowArchieved = ref(false);
@@ -150,8 +165,9 @@
     const editCampaign = (campaignId) => {
         campaign.value = campaigns.value.find(item => item.id === campaignId);
         console.log(campaign.value);
-        isAddCap.value = true;
-        
+        isUpdateCap.value = true;
+        isAddCap.value = false;
+
         // axios.put(`http://192.168.11.117:4545/campaign/updateCampaign/${id}`,{archive_campaign:false} ,{withCredentials: true, validateStatus: () => true})
         // .then((res)=>{
         //     if (res.status == 200){
@@ -165,22 +181,40 @@
     }
 
 
+    const isExpired = (item) => {
+        const today = new Date();
+        const endDate = new Date(item.end_date);
+        return today > endDate;
+    };
 
+    const isActive = (item) => {
+        const today = new Date();
+        const startDate = new Date(item.start_date);
+        const endDate = new Date(item.end_date);
+        return today >= startDate && today <= endDate;
+    };
+
+    const isUpcoming = (item) => {
+        const today = new Date();
+        const startDate = new Date(item.start_date);
+        return today < startDate;
+    };
 
     const getCampaigns = () => {
-        axios.get('http://192.168.11.117:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
+        axios.get('http://192.168.11.116:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
             .then(res => {
                 console.log(res.data.data);
                 campaigns.value = res.data.data.data
             }).catch(err => {
-                console.error(err.response.status)
+     
             })
     }
 
     onMounted(() => {
-        getCampaigns();
-    })
-
+        getCampaigns(); 
+        isAddCap.value = router.currentRoute.value.query.isAddCap === 'true';
+        console.log(isActive.value);
+    });
 </script>
 <style scoped>
     .container {
@@ -207,6 +241,8 @@
         text-align: center;
         margin-bottom: 0%;
         margin-top: 3%;
+        font-size: 2rem;
+        font-weight: 600;
     }
 
     .image-campaign {

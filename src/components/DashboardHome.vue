@@ -1,32 +1,32 @@
 <template>
   <div class="main-container">
-    <div class="card">
+    <div class="card" @click="isAddCap = true;  navigateToCampaign()">
       <div class="icon-info flex flex-row">
         <span class="material-symbols-outlined ">
-          person
+          brand_awareness
         </span>
-        <span class="material-symbols-outlined plus" >
+        <span class="material-symbols-outlined plus">
           add
-          </span>
+        </span>
       </div>
       <div class="info">
-        <p>Add Campaign</p>    
+        <p>Add Campaign</p>
       </div>
-      
+
     </div>
     <div class="card">
       <div class="icon-info flex flex-row ">
-        <span class="material-symbols-outlined">
-          brand_awareness
+        <span class="material-symbols-outlined">  
+            rewarded_ads
         </span>
-        <span class="material-symbols-outlined plus" >
+        <span class="material-symbols-outlined plus">
           add
-          </span>
+        </span>
       </div>
       <div class="info">
         <p>Add Prizes</p>
       </div>
-      
+
     </div>
     <div class="card">
       <div class="icon-info">
@@ -37,14 +37,24 @@
       <div class="info">
         <p>Reports</p>
       </div>
-      
+
     </div>
   </div>
   <CampaignCards></CampaignCards>
 </template>
 <script setup>
   import CampaignCards from "./CampaignCards.vue";
-  // import LoginDialog from "./Dialog/LoginDialog.vue";
+  import {ref,watch } from "vue"
+  import {useRouter} from "vue-router";
+  const router = useRouter()
+  const isAddCap = ref(false);
+  
+  const navigateToCampaign = () => {
+  if (isAddCap.value) {
+    isAddCap.value = true;
+    router.push({ path: '/campaigns', query: { isAddCap: isAddCap.value } });
+  }
+};
 </script>
 <style scoped>
   .main-container {
@@ -74,9 +84,10 @@
   .material-symbols-outlined {
     font-size: 7rem;
     margin-top: 40px;
-    color: 	#00953A;
+    color: #00953A;
     /* font-weight: 1000; */
   }
+
   .info {
     color: #ffff;
     width: 100%;
@@ -86,38 +97,42 @@
     justify-content: end;
 
   }
-  .icon-info{
+
+  .icon-info {
     display: flex;
     flex-direction: column;
   }
+
   .info p {
     padding: 1.5rem;
     font-size: 1.5rem;
     font-weight: 900;
-    background: 	#00953A;
+    background: #00953A;
     color: #ffff;
     transition: all 1s;
     text-align: center;
-   
+
   }
-  .main-container .card:hover p{
+
+  .main-container .card:hover p {
     background: #F4C300;
     cursor: pointer;
-    color: 	#00953A;
+    color: #00953A;
     transition: all 1s;
   }
-.plus{
-  font-size: 3rem;
-  font-weight: bold;
-  margin-left: -15px;
-}
+
+  .plus {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-left: -15px;
+  }
 
 
   @media (max-width:1080px) {
     .main-container .card {
       height: 200px;
       width: 300px;
-      
+
     }
 
     .info p {
@@ -133,6 +148,7 @@
 
 
     }
+
     .icon-info .material-symbols-outlined:nth-child(2) {
       margin-top: 20px;
       margin-left: 5px;
@@ -140,6 +156,6 @@
 
 
     }
-    
+
   }
 </style>

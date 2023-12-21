@@ -31,12 +31,12 @@
 <script setup>
     import axios from "axios";
     import {ref, onMounted} from "vue";
-    import Cookies from "js-cookie";
+    // import Cookies from "js-cookie";
     import {useRouter} from 'vue-router';
     import BaseButton from "../widget/BaseButton.vue";
     import TheTransition from "../widget/TheTransition.vue";
     import {validatePassword, validateEmail} from "../../validation";
-
+    
     // const emailInvalid = ref('');
     // const alert = ref(false)
     const invalidMessage = ref('');
@@ -48,7 +48,10 @@
     const loading = ref(false);
     const isLogin = ref(false);
     const errLog = ref(false);
-
+    const dataSessions = ref('');
+    
+    
+    
     const login = () => {
         const errPassword = validatePassword(password.value);
         const errEmail = validateEmail(email.value);
@@ -63,22 +66,15 @@
             return;
         }
         loading.value = true;
-        axios.post('http://192.168.11.117:4545/router/login', {
+        axios.post('http://192.168.11.116:4545/router/login', {
             email: email.value, password: password.value,
         }, {withCredentials: true, validateStatus: () => true}).then(res => {
             console.log(res.data);
             if (res.status == 200) {
-                // console.log(res.data);
-                Cookies.set("first_name", res.data.data.first_name, {expires: 30});
-                Cookies.set("last_name", res.data.data.last_name, {expires: 30});
-                Cookies.set("email", res.data.data.email, {expires: 30});
-                Cookies.set("role", res.data.data.role, {expires: 30});
-                Cookies.set("profile", res.data.data.profile, {expires: 30});
-                // if (res.data.data.role == "admin") {
                     isLogin.value = true;
                     setTimeout(()=>{
                         isLogin.value = false;
-                        // router.push('/');
+                        router.push('/');
                     },2000)
                 // }
                 
@@ -89,7 +85,7 @@
                 errorCode.value = res.data.code;
                if (errorCode.value === 404) {
                     invalidMessage.value = res.data.error;
-                    console.log(invalidMessage.value);
+                    // console.log(invalidMessage.value);
                     loading.value = false
                     errLog.value = true
                     setTimeout(()=>{
@@ -115,33 +111,19 @@
         });
     };
 
-    const getPrizes = () => {
-        axios.get('http://192.168.11.117:4545/prize/getAllPrizes', {withCredentials: true, validateStatus: () => true})
-            .then(res => {
-                console.log(res.data.data);
-            }).catch(err => {
-                console.error(err.response.status)
-            })
+    const getSessionData =()=>{
+        axios.get('http://192.168.11.117:4545/user/session', {withCredentials: true, validateStatus: () => true})
+        .then((res)=>{
+            if (res.status == 200){
+                console.log(res.data);
+                // cookieFirstName.value = res.data.data.session_data.first_name;
+            }
+        }).catch((err)=>{
+            console.error(err);
+        })
     }
-    const getCampaigns = () => {
-        axios.get('http://192.168.11.117:4545/campaign/getAllCampaigns', {withCredentials: true, validateStatus: () => true})
-            .then(res => {
-                console.log(res.data.data);
-            }).catch(err => {
-                console.error(err.response.status)
-            })
-    }
-    const getUsers = () => {
-        axios.get('http://192.168.11.117:4545/user/getAllUsers', {withCredentials: true, validateStatus: () => true})
-            .then(res => {
-                console.log(res.data.data);
-            }).catch(err => {
-                console.error(err.response.status)
-            })
-    }
-
-    onMounted(() => {
-        getPrizes();
+    onMounted(()=>{
+        getSessionData();
     })
 </script>
 

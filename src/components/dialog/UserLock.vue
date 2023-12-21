@@ -41,7 +41,7 @@
     
     const lockUser = () =>{
         loading.value = true;
-        axios.put(`http://192.168.11.117:4545/user/updateLockUser/${props.userId}`,{user_lock:true},  {withCredentials: true, validateStatus: () => true})
+        axios.put(`http://192.168.11.116:4545/user/updateLockUser/${props.userId}`,{user_lock:true},  {withCredentials: true, validateStatus: () => true})
         .then(res =>{
             console.log(res);
             if(res.status == 200) {

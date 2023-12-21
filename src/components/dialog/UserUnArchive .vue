@@ -41,7 +41,7 @@
 // console.log(userId);
     const unArchiveUser = () =>{
         loading.value = true;
-        axios.put(`http://192.168.11.117:4545/user/updateArchiveUser/${props.userId}`,{user_archive:false},  {withCredentials: true, validateStatus: () => true})
+        axios.put(`http://192.168.11.116:4545/user/updateArchiveUser/${props.userId}`,{user_archive:false},  {withCredentials: true, validateStatus: () => true})
         .then(res =>{
             if(res.status == 200) {
                 loading.value = false
